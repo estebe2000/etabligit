@@ -9,6 +9,7 @@ import signal
 import subprocess
 import sys
 import time
+import argparse
 from dotenv import load_dotenv
 import threading
 import logging
@@ -56,15 +57,15 @@ def stop_services():
         ui_process.wait(timeout=5)
         ui_process = None
 
-def start_api():
+def start_api(host=API_HOST, port=API_PORT):
     """Start the FastAPI backend service in production mode."""
     global api_process
     
-    logger.info(f"Starting API service on {API_HOST}:{API_PORT}...")
+    logger.info(f"Starting API service on {host}:{port}...")
     api_cmd = [
         sys.executable, "-m", "uvicorn", "main:app", 
-        "--host", API_HOST, 
-        "--port", str(API_PORT)
+        "--host", host, 
+        "--port", str(port)
     ]
     
     api_process = subprocess.Popen(
@@ -83,11 +84,11 @@ def start_api():
     
     return api_process.poll() is None
 
-def start_ui():
+def start_ui(host=FLASK_HOST, port=FLASK_PORT, debug=FLASK_DEBUG):
     """Start the Flask UI service in production mode."""
     global ui_process
     
-    logger.info(f"Starting UI service on {FLASK_HOST}:{FLASK_PORT}...")
+    logger.info(f"Starting UI service on {host}:{port}...")
     
     # Create a temporary script to run Flask with the correct port
     temp_script_path = "run_flask_prod.py"
@@ -95,14 +96,14 @@ def start_ui():
         f.write(f"""
 import os
 os.environ['FLASK_APP'] = 'ui_app.py'
-os.environ['FLASK_DEBUG'] = 'false'
-os.environ['FLASK_HOST'] = '{FLASK_HOST}'
-os.environ['FLASK_PORT'] = '{FLASK_PORT}'
+os.environ['FLASK_DEBUG'] = '{"true" if debug else "false"}'
+os.environ['FLASK_HOST'] = '{host}'
+os.environ['FLASK_PORT'] = '{port}'
 
 from ui_app import app
 
 if __name__ == '__main__':
-    app.run(host='{FLASK_HOST}', port={FLASK_PORT}, debug=False)
+    app.run(host='{host}', port={port}, debug={str(debug).lower()})
 """)
     
     ui_cmd = [
@@ -130,27 +131,51 @@ def log_output(process, prefix):
     for line in iter(process.stdout.readline, ''):
         logger.info(f"[{prefix}] {line.rstrip()}")
 
+def parse_arguments():
+    """Parse command line arguments."""
+    parser = argparse.ArgumentParser(description="Launch L'Établi API and/or UI services.")
+    parser.add_argument("--api-only", action="store_true", help="Start only the API service")
+    parser.add_argument("--ui-only", action="store_true", help="Start only the UI service")
+    parser.add_argument("--api-host", help=f"API host (default: {API_HOST})")
+    parser.add_argument("--api-port", type=int, help=f"API port (default: {API_PORT})")
+    parser.add_argument("--ui-host", help=f"UI host (default: {FLASK_HOST})")
+    parser.add_argument("--ui-port", type=int, help=f"UI port (default: {FLASK_PORT})")
+    parser.add_argument("--no-debug", action="store_true", help="Disable Flask debug mode")
+    
+    return parser.parse_args()
+
 def main():
     """Main entry point for the production launcher."""
+    args = parse_arguments()
+    
+    # Override defaults with command line arguments if provided
+    api_host = args.api_host if args.api_host else API_HOST
+    api_port = args.api_port if args.api_port else API_PORT
+    ui_host = args.ui_host if args.ui_host else FLASK_HOST
+    ui_port = args.ui_port if args.ui_port else FLASK_PORT
+    flask_debug = not args.no_debug and FLASK_DEBUG
+    
     logger.info("Starting L'Établi in PRODUCTION mode")
-    logger.info(f"API will run on port {API_PORT}")
-    logger.info(f"UI will run on port {FLASK_PORT}")
+    logger.info(f"API will run on {api_host}:{api_port}")
+    logger.info(f"UI will run on {ui_host}:{ui_port}")
     
     # Register signal handlers for graceful shutdown
     signal.signal(signal.SIGINT, signal_handler)
     signal.signal(signal.SIGTERM, signal_handler)
     
     try:
-        # Start services
-        if not start_api():
-            logger.error("Failed to start API service")
-            stop_services()
-            return 1
+        # Start services based on command line arguments
+        if not args.ui_only:
+            if not start_api(host=api_host, port=api_port):
+                logger.error("Failed to start API service")
+                stop_services()
+                return 1
         
-        if not start_ui():
-            logger.error("Failed to start UI service")
-            stop_services()
-            return 1
+        if not args.api_only:
+            if not start_ui(host=ui_host, port=ui_port, debug=flask_debug):
+                logger.error("Failed to start UI service")
+                stop_services()
+                return 1
         
         # Keep the main thread alive
         logger.info("All services started successfully in PRODUCTION mode. Press Ctrl+C to stop.")
