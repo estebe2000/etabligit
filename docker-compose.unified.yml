@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  # Original separate services
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    restart: unless-stopped
+
+  ui:
+    build:
+      context: .
+      dockerfile: Dockerfile.ui
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    depends_on:
+      - api
+    restart: unless-stopped
+    
+  # New unified service using the launcher
+  unified:
+    build:
+      context: .
+      dockerfile: Dockerfile.unified
+    ports:
+      - "8000:8000"  # API port
+      - "5000:5000"  # UI port
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    restart: unless-stopped

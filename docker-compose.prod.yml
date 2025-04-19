@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  # Production unified service using the production launcher
+  etabli:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    ports:
+      - "8099:8099"  # Production API port
+      - "5099:5099"  # Production UI port
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    restart: always

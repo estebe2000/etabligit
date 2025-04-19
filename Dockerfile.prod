@@ -1,0 +1,18 @@
+FROM python:3.9-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+# Make the production launcher script executable
+RUN chmod +x launcher_prod.py
+
+# Expose production ports
+EXPOSE 8099
+EXPOSE 5099
+
+# Use the production launcher as the entry point
+CMD ["python", "launcher_prod.py"]

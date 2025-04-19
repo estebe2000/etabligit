@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}Authentification{% endblock %}
+
+{% block content %}
+{% if random_image %}
+<div class="row justify-content-center mb-4">
+    <div class="col-md-8 text-center">
+        <img src="/medias/{{ random_image }}" alt="Bienvenue sur L'Établi" class="img-fluid rounded shadow" style="max-height: 300px;">
+    </div>
+</div>
+{% endif %}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Authentification Forge</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="token" class="form-label">Token de déploiement Forge</label>
+                        <input type="password" class="form-control" id="token" name="token" required>
+                        <div class="form-text">
+                            Utilisez un token de déploiement Forge (format: gldt-xxxxxxxxxxxx)
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Se connecter</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.tuto-step {
+    display: block;
+    width: 100%;
+    margin-bottom: 30px;
+    clear: both;
+}
+.tuto-title {
+    background-color: #0dcaf0;
+    color: white;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+.tuto-content {
+    margin-bottom: 20px;
+}
+.tuto-img {
+    max-width: 100%;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+}
+</style>
+
+<div style="margin-top: 50px; margin-bottom: 50px;">
+    <h2 style="margin-bottom: 20px; text-align: center;">Comment obtenir un token de déploiement Forge</h2>
+    
+    <div style="background-color: #cff4fc; color: #055160; padding: 15px; border-radius: 5px; margin-bottom: 30px;">
+        <strong>Important :</strong> Copiez immédiatement votre jeton après sa création, car vous ne pourrez plus le voir ensuite. Ce jeton vous donne accès à votre compte, ne le partagez jamais !
+    </div>
+    
+    <div class="tuto-step">
+        <h3 class="tuto-title">Étape 1 : Accéder à votre profil</h3>
+        <div class="tuto-content">
+            <p>Cliquez sur votre avatar en haut à droite, puis sélectionnez "Préférences".</p>
+            <img src="/tuto/1-profile.png" alt="Accéder au profil" class="tuto-img">
+        </div>
+    </div>
+    
+    <div class="tuto-step">
+        <h3 class="tuto-title">Étape 2 : Accéder aux jetons d'accès</h3>
+        <div class="tuto-content">
+            <p>Dans le menu de gauche, cliquez sur "Jetons d'accès".</p>
+            <img src="/tuto/2-preferences.png" alt="Menu des préférences" class="tuto-img">
+        </div>
+    </div>
+    
+    <div class="tuto-step">
+        <h3 class="tuto-title">Étape 3 : Créer un nouveau jeton</h3>
+        <div class="tuto-content">
+            <p>Cliquez sur le bouton "Ajouter un jeton personnel".</p>
+            <img src="/tuto/3-jeton.png" alt="Page des jetons" class="tuto-img">
+        </div>
+    </div>
+    
+    <div class="tuto-step">
+        <h3 class="tuto-title">Étape 4 : Configurer et créer le jeton</h3>
+        <div class="tuto-content">
+            <p>Donnez un nom à votre jeton, sélectionnez une date d'expiration, cochez les cases "api" et "write_repository", puis cliquez sur "Créer un jeton personnel".</p>
+            <img src="/tuto/4-ajouter.png" alt="Création du jeton" class="tuto-img">
+        </div>
+    </div>
+</div>
+{% endblock %}

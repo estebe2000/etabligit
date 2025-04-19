@@ -1,0 +1,374 @@
+{% extends "base.html" %}
+
+{% block title %}Aide{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4 display-4 text-center">Aide et Ressources</h1>
+    
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white py-3">
+                    <h2 class="h4 mb-0 d-flex align-items-center">
+                        <i class="bi bi-info-circle-fill me-2"></i>
+                        Aide Générale
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="p-3 bg-light rounded mb-3">
+                                <h3 class="h5 text-primary">L'Établi est une application pédagogique pour la gestion de dépôts GitLab. Elle vous permet de :</h3>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item bg-light border-0 ps-0">
+                                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                        Créer et gérer des dépôts
+                                    </li>
+                                    <li class="list-group-item bg-light border-0 ps-0">
+                                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                        Éditer des fichiers directement dans l'interface
+                                    </li>
+                                    <li class="list-group-item bg-light border-0 ps-0">
+                                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                        Déployer vos sites web via GitLab Pages
+                                    </li>
+                                    <li class="list-group-item bg-light border-0 ps-0">
+                                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                        Collaborer sur des projets
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card h-100 border-primary">
+                                        <div class="card-header bg-primary text-white">
+                                            <h4 class="h6 mb-0">Pour démarrer l'application</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text">Vous pouvez utiliser le lanceur unifié :</p>
+                                            <div class="bg-light p-2 rounded mb-2">
+                                                <code class="text-primary">python launcher.py</code>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card h-100 border-success">
+                                        <div class="card-header bg-success text-white">
+                                            <h4 class="h6 mb-0">Version production (ports 8099/5099)</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text">Pour la version production :</p>
+                                            <div class="bg-light p-2 rounded mb-2">
+                                                <code class="text-success">python launcher_prod.py</code>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <div class="card h-100 border-info">
+                                        <div class="card-header bg-info text-white">
+                                            <h4 class="h6 mb-0">Avec Docker (développement)</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="bg-light p-2 rounded mb-2">
+                                                <code class="text-info">docker-compose -f docker-compose.unified.yml up unified</code>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card h-100 border-danger">
+                                        <div class="card-header bg-danger text-white">
+                                            <h4 class="h6 mb-0">Avec Docker (production)</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="bg-light p-2 rounded mb-2">
+                                                <code class="text-danger">docker-compose -f docker-compose.prod.yml up etabli</code>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="mb-4 text-center">Outils IA pour le développement</h2>
+    
+    <!-- Onglets pour les différentes catégories d'outils IA -->
+    <ul class="nav nav-tabs mb-4" id="aiToolsTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="code-tab" data-bs-toggle="tab" data-bs-target="#code" type="button" role="tab" aria-controls="code" aria-selected="true">
+                <i class="bi bi-code-square me-1"></i> Code HTML
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="images-tab" data-bs-toggle="tab" data-bs-target="#images" type="button" role="tab" aria-controls="images" aria-selected="false">
+                <i class="bi bi-image me-1"></i> Images
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="audio-tab" data-bs-toggle="tab" data-bs-target="#audio" type="button" role="tab" aria-controls="audio" aria-selected="false">
+                <i class="bi bi-music-note-beamed me-1"></i> Audio
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="video-tab" data-bs-toggle="tab" data-bs-target="#video" type="button" role="tab" aria-controls="video" aria-selected="false">
+                <i class="bi bi-film me-1"></i> Vidéos
+            </button>
+        </li>
+    </ul>
+    
+    <!-- Contenu des onglets -->
+    <div class="tab-content" id="aiToolsTabContent">
+        <!-- Onglet Code HTML -->
+        <div class="tab-pane fade show active" id="code" role="tabpanel" aria-labelledby="code-tab">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle" id="codeToolsTable">
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col" class="text-center">Lien</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="fw-bold">DeepSite</span></td>
+                                    <td>Générateur de sites web basé sur l'IA</td>
+                                    <td class="text-center"><a href="https://deepsite.ai/" target="_blank" class="btn btn-sm btn-outline-success"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="fw-bold">Gemini</span></td>
+                                    <td>IA de Google pour la génération de code</td>
+                                    <td class="text-center"><a href="https://gemini.google.com/" target="_blank" class="btn btn-sm btn-outline-success"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="fw-bold">Copilot</span></td>
+                                    <td>Assistant de codage IA de GitHub</td>
+                                    <td class="text-center"><a href="https://github.com/features/copilot" target="_blank" class="btn btn-sm btn-outline-success"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="fw-bold">ChatGPT</span></td>
+                                    <td>IA conversationnelle d'OpenAI</td>
+                                    <td class="text-center"><a href="https://chat.openai.com/" target="_blank" class="btn btn-sm btn-outline-success"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="fw-bold">Perplexity</span></td>
+                                    <td>Moteur de recherche augmenté par IA</td>
+                                    <td class="text-center"><a href="https://www.perplexity.ai/" target="_blank" class="btn btn-sm btn-outline-success"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="fw-bold">Poe</span></td>
+                                    <td>Plateforme d'accès à plusieurs IA</td>
+                                    <td class="text-center"><a href="https://poe.com/" target="_blank" class="btn btn-sm btn-outline-success"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="fw-bold">YouChat</span></td>
+                                    <td>Assistant IA de You.com</td>
+                                    <td class="text-center"><a href="https://you.com/" target="_blank" class="btn btn-sm btn-outline-success"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="fw-bold">Mistral</span></td>
+                                    <td>IA française pour la génération de code</td>
+                                    <td class="text-center"><a href="https://mistral.ai/" target="_blank" class="btn btn-sm btn-outline-success"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="fw-bold">HuggingChat</span></td>
+                                    <td>IA conversationnelle de HuggingFace</td>
+                                    <td class="text-center"><a href="https://huggingface.co/chat/" target="_blank" class="btn btn-sm btn-outline-success"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="fw-bold">Pi</span></td>
+                                    <td>Assistant IA personnel</td>
+                                    <td class="text-center"><a href="https://heypi.com/" target="_blank" class="btn btn-sm btn-outline-success"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="fw-bold">Claude</span></td>
+                                    <td>IA conversationnelle d'Anthropic</td>
+                                    <td class="text-center"><a href="https://claude.ai/" target="_blank" class="btn btn-sm btn-outline-success"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="fw-bold">DuckDuckGo AI Chat</span></td>
+                                    <td>Assistant IA de DuckDuckGo</td>
+                                    <td class="text-center"><a href="https://duckduckgo.com/" target="_blank" class="btn btn-sm btn-outline-success"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="fw-bold">Grok</span></td>
+                                    <td>IA conversationnelle de xAI</td>
+                                    <td class="text-center"><a href="https://grok.x.ai/" target="_blank" class="btn btn-sm btn-outline-success"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="fw-bold">DeepSeek</span></td>
+                                    <td>IA spécialisée dans la génération de code</td>
+                                    <td class="text-center"><a href="https://deepseek.ai/" target="_blank" class="btn btn-sm btn-outline-success"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Onglet Images -->
+        <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle" id="imageToolsTable">
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col" class="text-center">Lien</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="fw-bold">Seelab</span> <span class="badge bg-danger">💖</span></td>
+                                    <td>Générateur d'images IA pour les équipes créatives. En free, 20 images par jour.</td>
+                                    <td class="text-center"><a href="https://seelab.ai/" target="_blank" class="btn btn-sm btn-outline-info"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="fw-bold">Copy//Artifact</span></td>
+                                    <td>Générateur d'images gratuit et sans inscription, réagissant aux descriptions textuelles en français.</td>
+                                    <td class="text-center"><a href="https://copyartifact.com/" target="_blank" class="btn btn-sm btn-outline-info"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="fw-bold">Trellis</span></td>
+                                    <td>Outil de génération 3D alimenté par IA, capable de créer des fichiers 3D aux formats GLB ou Gaussian.</td>
+                                    <td class="text-center"><a href="https://trellis.ai/" target="_blank" class="btn btn-sm btn-outline-info"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="fw-bold">PicLumen</span></td>
+                                    <td>Générateur d'images IA en français. Version gratuite: 10 images par jour.</td>
+                                    <td class="text-center"><a href="https://piclumen.com/" target="_blank" class="btn btn-sm btn-outline-info"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="fw-bold">MagicQuill</span></td>
+                                    <td>Outil de retouche d'image IA, permettant des modifications basées sur des descriptions textuelles.</td>
+                                    <td class="text-center"><a href="https://huggingface.co/spaces/fffiloni/MagicQuill" target="_blank" class="btn btn-sm btn-outline-info"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="fw-bold">Bing Image Creator</span> <span class="badge bg-danger">💖</span></td>
+                                    <td>Générateur d'images intégrant la technologie DALL-E 3, gratuit.</td>
+                                    <td class="text-center"><a href="https://www.bing.com/create" target="_blank" class="btn btn-sm btn-outline-info"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="fw-bold">DALL-E</span></td>
+                                    <td>Générateur d'images d'OpenAI. Version gratuite limitée à DALL-E 2.</td>
+                                    <td class="text-center"><a href="https://openai.com/dall-e-2" target="_blank" class="btn btn-sm btn-outline-info"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="fw-bold">Stable Diffusion</span></td>
+                                    <td>Générateur d'images gratuit et open source basé sur Stable Diffusion XL.</td>
+                                    <td class="text-center"><a href="https://stablediffusionweb.com/" target="_blank" class="btn btn-sm btn-outline-info"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="fw-bold">Adobe Firefly</span> <span class="badge bg-danger">💖</span></td>
+                                    <td>Suite d'outils IA pour la génération et l'édition d'images. 25 crédits/mois en version gratuite.</td>
+                                    <td class="text-center"><a href="https://firefly.adobe.com/" target="_blank" class="btn btn-sm btn-outline-info"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Onglet Audio -->
+        <div class="tab-pane fade" id="audio" role="tabpanel" aria-labelledby="audio-tab">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle" id="audioToolsTable">
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col" class="text-center">Lien</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="fw-bold">Murf.ai</span> <span class="badge bg-danger">💖</span></td>
+                                    <td>Outil de synthèse vocale avec voix réalistes. 10 minutes gratuites.</td>
+                                    <td class="text-center"><a href="https://murf.ai/" target="_blank" class="btn btn-sm btn-outline-warning"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="fw-bold">ZenMic</span></td>
+                                    <td>Générateur de podcasts IA. Moins de 10 épisodes mensuels en version gratuite.</td>
+                                    <td class="text-center"><a href="https://zenmic.ai/" target="_blank" class="btn btn-sm btn-outline-warning"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="fw-bold">PlayNote</span></td>
+                                    <td>Outil de synthèse vocale et génération de podcasts. 30 minutes gratuites par mois.</td>
+                                    <td class="text-center"><a href="https://playnote.ai/" target="_blank" class="btn btn-sm btn-outline-warning"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="fw-bold">Riffusion</span></td>
+                                    <td>Générateur de musique IA en temps réel à partir de descriptions textuelles.</td>
+                                    <td class="text-center"><a href="https://www.riffusion.com/" target="_blank" class="btn btn-sm btn-outline-warning"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="fw-bold">MusicHero</span> <span class="badge bg-danger">💖</span></td>
+                                    <td>Générateur de musique IA. 300 chansons gratuites (max 10/jour).</td>
+                                    <td class="text-center"><a href="https://musichero.ai/" target="_blank" class="btn btn-sm btn-outline-warning"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="fw-bold">Suno</span></td>
+                                    <td>Générateur de chansons IA. 10 chansons gratuites par jour.</td>
+                                    <td class="text-center"><a href="https://suno.ai/" target="_blank" class="btn btn-sm btn-outline-warning"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="fw-bold">Elevenlabs</span></td>
+                                    <td>Synthétiseur vocal avancé. 10000 caractères gratuits par mois.</td>
+                                    <td class="text-center"><a href="https://elevenlabs.io/" target="_blank" class="btn btn-sm btn-outline-warning"><i class="bi bi-box-arrow-up-right me-1"></i>Accéder</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Onglet Vidéos (vide mais structure maintenue) -->
+        <div class="tab-pane fade" id="video" role="tabpanel" aria-labelledby="video-tab">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle" id="videoToolsTable">
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col" class="text-center">Lien</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="3" class="text-center py-4">
+                                        <i class="bi bi-info-circle me-2"></i>
+                                        Contenu en cours de développement
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
