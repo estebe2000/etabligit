@@ -56,7 +56,7 @@ def repos():
         projects_response.raise_for_status()
         repos = projects_response.json()
 
-        # Ajouter l'URL des pages pour chaque projet
+        # Ajouter l'URL des pages et le statut du pipeline pour chaque projet
         for repo in repos:
             # Récupérer l'URL des pages
             try:
@@ -69,6 +69,21 @@ def repos():
                     repo['pages_url'] = pages_info.get('url', '')
             except Exception:
                 repo['pages_url'] = ''
+                
+            # Récupérer le statut du dernier pipeline
+            try:
+                pipelines_response = httpx.get(
+                    f"{FORGE_API_URL}/projects/{repo['id']}/pipelines",
+                    headers={"Authorization": f"Bearer {session['forge_token']}"},
+                    params={"per_page": 1}  # Récupérer seulement le dernier pipeline
+                )
+                if pipelines_response.status_code == 200 and pipelines_response.json():
+                    pipeline_info = pipelines_response.json()[0]  # Le premier est le plus récent
+                    repo['pipeline_status'] = pipeline_info.get('status', '')
+                else:
+                    repo['pipeline_status'] = ''
+            except Exception:
+                repo['pipeline_status'] = ''
     except Exception as e:
         flash(f"Erreur lors de la récupération des dépôts: {str(e)}", "error")
         repos = []

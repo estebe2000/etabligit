@@ -48,6 +48,14 @@
                     <a href="{{ repo.pages_url }}" target="_blank" class="text-truncate">{{ repo.pages_url }}</a>
                 </div>
                 {% endif %}
+                
+                {% if repo.pipeline_status %}
+                <div class="card-text d-flex align-items-center mt-2">
+                    <span class="badge bg-{{ 'success' if repo.pipeline_status == 'success' else 'danger' if repo.pipeline_status == 'failed' else 'warning' if repo.pipeline_status == 'running' else 'secondary' }} me-2">
+                        Pipeline: {{ repo.pipeline_status }}
+                    </span>
+                </div>
+                {% endif %}
             </div>
             <div class="card-footer bg-transparent">
                 <a href="/edit/{{ repo.id }}" class="btn btn-sm btn-outline-primary">Éditer site web</a>

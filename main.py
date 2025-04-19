@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from api import repos
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI(
     title="L'Établi API",
@@ -16,6 +17,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Monter les fichiers statiques de Spynorama
+app.mount("/spynorama", StaticFiles(directory="spynorama"), name="spynorama")
 
 # Routes API
 app.include_router(repos.router, prefix="/api")

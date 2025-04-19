@@ -1,13 +1,21 @@
 import httpx
 import os
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Union
 import logging
 
 class ForgeClient:
     def __init__(self, username: str, password: str):
         self.base_url = os.getenv("FORGE_API_URL", "https://forge.apps.education.fr/api/v4")
-        self.auth = httpx.BasicAuth(username, password)
-        self.headers = {"Content-Type": "application/json"}
+        # Si le username est un token, utiliser l'authentification par token
+        if password == "":
+            self.auth = None
+            self.headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {username}"
+            }
+        else:
+            self.auth = httpx.BasicAuth(username, password)
+            self.headers = {"Content-Type": "application/json"}
         self.logger = logging.getLogger(__name__)
 
     async def _make_request(self, method: str, endpoint: str, **kwargs):
@@ -45,13 +53,18 @@ class ForgeClient:
 
     async def commit_file(self, project_id: int, file_path: str, content: str, commit_message: str) -> Dict:
         """Commit un fichier dans un dépôt"""
+        return await self.commit_file_with_encoding(project_id, file_path, content, commit_message, "text")
+        
+    async def commit_file_with_encoding(self, project_id: int, file_path: str, content: str, commit_message: str, encoding: str = "text") -> Dict:
+        """Commit un fichier dans un dépôt avec encodage spécifié"""
         data = {
             "branch": "main",
             "commit_message": commit_message,
             "actions": [{
                 "action": "create",
                 "file_path": file_path,
-                "content": content
+                "content": content,
+                "encoding": encoding
             }]
         }
         return await self._make_request(
@@ -128,4 +141,18 @@ class ForgeClient:
             ".gitlab-ci.yml",
             ci_content,
             "Enable Forge Pages"
+        )
+        
+    async def get_pipeline_status(self, project_id: int, pipeline_id: int) -> Dict:
+        """Récupère le statut d'un pipeline"""
+        return await self._make_request(
+            "GET",
+            f"/projects/{project_id}/pipelines/{pipeline_id}"
+        )
+        
+    async def get_pages_info(self, project_id: int) -> Dict:
+        """Récupère les informations des pages d'un projet"""
+        return await self._make_request(
+            "GET",
+            f"/projects/{project_id}/pages"
         )
