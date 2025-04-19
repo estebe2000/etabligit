@@ -103,7 +103,7 @@ os.environ['FLASK_PORT'] = '{port}'
 from ui_app import app
 
 if __name__ == '__main__':
-    app.run(host='{host}', port={port}, debug={str(debug).lower()})
+    app.run(host='{host}', port={port}, debug={debug})
 """)
     
     ui_cmd = [
