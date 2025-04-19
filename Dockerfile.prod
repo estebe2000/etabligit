@@ -5,7 +5,15 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+# Copy only the necessary files, excluding spynorama
+COPY main.py .
+COPY ui_app.py .
+COPY launcher_prod.py .
+COPY api/ ./api/
+COPY templates/ ./templates/
+COPY medias/ ./medias/
+COPY tuto/ ./tuto/
+COPY requirements.txt .
 
 # Make the production launcher script executable
 RUN chmod +x launcher_prod.py

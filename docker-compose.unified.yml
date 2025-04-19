@@ -11,7 +11,8 @@ services:
     env_file:
       - .env
     volumes:
-      - .:/app
+      - ./main.py:/app/main.py
+      - ./api:/app/api
     restart: unless-stopped
 
   ui:
@@ -23,7 +24,10 @@ services:
     env_file:
       - .env
     volumes:
-      - .:/app
+      - ./ui_app.py:/app/ui_app.py
+      - ./templates:/app/templates
+      - ./medias:/app/medias
+      - ./tuto:/app/tuto
     depends_on:
       - api
     restart: unless-stopped

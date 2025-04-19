@@ -5,6 +5,11 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+# Copy only the necessary files, excluding spynorama
+COPY ui_app.py .
+COPY templates/ ./templates/
+COPY medias/ ./medias/
+COPY tuto/ ./tuto/
+COPY requirements.txt .
 
 CMD ["python", "ui_app.py"]

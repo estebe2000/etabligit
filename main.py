@@ -18,8 +18,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Monter les fichiers statiques de Spynorama
-app.mount("/spynorama", StaticFiles(directory="spynorama"), name="spynorama")
+# Les fichiers statiques de Spynorama ne sont plus montés ici
+# car les projets sont maintenant séparés
 
 # Routes API
 app.include_router(repos.router, prefix="/api")
