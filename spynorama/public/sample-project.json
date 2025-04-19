@@ -1,0 +1,113 @@
+{
+  "version": "1.0",
+  "scenes": [
+    {
+      "id": "scene_1713264000000",
+      "name": "Entrée Cantine",
+      "imageUrl": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/...",
+      "initialViewParameters": {
+        "yaw": 0.12,
+        "pitch": 0.05,
+        "fov": 1.5
+      },
+      "hotspots": [
+        {
+          "id": "hotspot_1713264010000",
+          "type": "info",
+          "position": {
+            "yaw": 0.25,
+            "pitch": 0.1
+          },
+          "title": "Informations",
+          "content": "Entrée principale de la cantine. Horaires d'ouverture : 11h30 - 14h00."
+        },
+        {
+          "id": "hotspot_1713264020000",
+          "type": "scene",
+          "position": {
+            "yaw": -0.5,
+            "pitch": 0.05
+          },
+          "title": "Aller à la cantine",
+          "target": "scene_1713264100000"
+        }
+      ]
+    },
+    {
+      "id": "scene_1713264100000",
+      "name": "Cantine",
+      "imageUrl": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/...",
+      "initialViewParameters": {
+        "yaw": 0,
+        "pitch": 0,
+        "fov": 1.5
+      },
+      "hotspots": [
+        {
+          "id": "hotspot_1713264110000",
+          "type": "info",
+          "position": {
+            "yaw": 0.3,
+            "pitch": -0.1
+          },
+          "title": "Menu du jour",
+          "content": "Entrée: Salade composée\nPlat: Poulet rôti et pommes de terre\nDessert: Tarte aux pommes"
+        },
+        {
+          "id": "hotspot_1713264120000",
+          "type": "scene",
+          "position": {
+            "yaw": 1.2,
+            "pitch": 0.1
+          },
+          "title": "Retour à l'entrée",
+          "target": "scene_1713264000000"
+        },
+        {
+          "id": "hotspot_1713264130000",
+          "type": "link",
+          "position": {
+            "yaw": -0.8,
+            "pitch": 0.2
+          },
+          "title": "Site web",
+          "url": "https://www.example.com/cantine",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "id": "scene_1713264200000",
+      "name": "Bâtiment A",
+      "imageUrl": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/...",
+      "initialViewParameters": {
+        "yaw": -0.2,
+        "pitch": 0.1,
+        "fov": 1.5
+      },
+      "hotspots": [
+        {
+          "id": "hotspot_1713264210000",
+          "type": "info",
+          "position": {
+            "yaw": 0.1,
+            "pitch": 0.3
+          },
+          "title": "Bâtiment A",
+          "content": "Bâtiment principal abritant les salles de classe 101 à 120 et les bureaux administratifs."
+        },
+        {
+          "id": "hotspot_1713264220000",
+          "type": "scene",
+          "position": {
+            "yaw": 0.7,
+            "pitch": 0
+          },
+          "title": "Aller à l'entrée de la cantine",
+          "target": "scene_1713264000000"
+        }
+      ]
+    }
+  ],
+  "currentSceneIndex": 0
+}

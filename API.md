@@ -637,6 +637,90 @@ else:
 
 5. **Environnements** : Utilisez des variables d'environnement pour stocker votre token plutôt que de le coder en dur dans vos scripts.
 
+### Publication de Spynorama
+
+#### Publier un Spynorama sur la forge
+
+```
+POST /api/publish-spynorama
+```
+
+Cet endpoint permet de publier un projet Spynorama directement sur la forge. Il crée automatiquement un nouveau dépôt, y télécharge les fichiers du Spynorama, configure GitLab Pages et retourne l'URL du site publié.
+
+**Paramètres de la requête :**
+
+- `file` (fichier) : Archive ZIP contenant les fichiers du site Spynorama
+- `name` (string) : Nom du dépôt à créer
+- `token` (string) : Token d'accès personnel à la forge
+
+**Exemple de requête avec curl :**
+
+```bash
+curl -X POST "https://etabligit.onrender.com/api/publish-spynorama" \
+  -F "file=@spynorama.zip" \
+  -F "name=mon-spynorama" \
+  -F "token=VOTRE_TOKEN"
+```
+
+**Exemple de requête avec JavaScript :**
+
+```javascript
+// Créer un objet FormData pour l'envoi
+const formData = new FormData();
+formData.append('file', fichierZip, 'spynorama.zip');
+formData.append('name', 'mon-spynorama');
+formData.append('token', 'VOTRE_TOKEN');
+
+// Envoyer la requête
+fetch('https://etabligit.onrender.com/api/publish-spynorama', {
+    method: 'POST',
+    body: formData
+})
+.then(response => response.json())
+.then(data => {
+    console.log('URL du site publié:', data.pages_url);
+})
+.catch(error => {
+    console.error('Erreur lors de la publication:', error);
+});
+```
+
+**Exemple de requête avec Python :**
+
+```python
+import requests
+
+# URL de l'API
+url = "https://etabligit.onrender.com/api/publish-spynorama"
+
+# Données à envoyer
+files = {'file': open('spynorama.zip', 'rb')}
+data = {
+    'name': 'mon-spynorama',
+    'token': 'VOTRE_TOKEN'
+}
+
+# Envoyer la requête
+response = requests.post(url, files=files, data=data)
+
+if response.status_code == 201:
+    result = response.json()
+    print(f"Publication réussie! URL du site: {result['pages_url']}")
+else:
+    print(f"Erreur: {response.text}")
+```
+
+**Réponse en cas de succès (201 Created) :**
+
+```json
+{
+    "success": true,
+    "repo_id": 12345,
+    "repo_name": "mon-spynorama",
+    "pages_url": "https://username.forge.apps.education.fr/mon-spynorama/"
+}
+```
+
 ## Ressources Supplémentaires
 
 - [Documentation officielle de l'API GitLab](https://docs.gitlab.com/ee/api/) (La forge de l'éducation est basée sur GitLab)
